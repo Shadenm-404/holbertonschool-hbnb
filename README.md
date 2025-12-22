@@ -13,4 +13,4 @@ The diagram below presents the **High-Level Package Diagram** for the HBnB Evolu
 It illustrates the three main layers of the system: **Presentation Layer**, **Business Logic Layer**, and **Persistence Layer**, and demonstrates how these layers communicate through the **Facade Pattern**.  
 This diagram provides a high-level architectural overview without including implementation or database-specific details.
 
-![HBnB High-Level Package Diagram](Diagrams/hbnb_package_diagram.png)
+![HBnB High-Level Package Diagram](part1/hbnb_package_diagram.png)
