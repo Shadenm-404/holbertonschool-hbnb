@@ -147,10 +147,10 @@ These diagrams illustrate how the Presentation Layer, Business Logic Layer, and 
 Each sequence diagram represents a specific API use case and demonstrates the flow of requests and responses across the system layers.
 
 <p align="left">
-  <img src="Sequence Diagrams User Registration.png" width="300">
-  <img src="Sequence Diagrams Place Creation.png" width="300">
-  <img src="Sequence Diagrams Review Submission.png" width="300">
-  <img src="Sequence Diagrams Fetching a List of Place.png" width="300">
+  <img src="Sequence Diagrams User Registration.png" width="450">
+  <img src="Sequence Diagrams Place Creation.png" width="450">
+  <img src="Sequence Diagrams Review Submission.png" width="450">
+  <img src="Sequence Diagrams Fetching a List of Place.png" width="450">
 </p>
 
 
