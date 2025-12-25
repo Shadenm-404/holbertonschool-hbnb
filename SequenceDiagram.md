@@ -25,4 +25,12 @@ Explanation
 The user submits a review via the API. The Business Logic layer validates the review data and saves it in the database. Upon successful creation, the API returns an HTTP 201 Created response.
 Design Note
 Centralised validation ensures data consistency and enforces business rules.
+________________________________________
+4. Fetching a List of Places
+Purpose
+Illustrates how the system retrieves a list of places based on user-defined filters.
+Explanation
+The user sends a request to the API to retrieve places. The API forwards filtering parameters to the Business Logic layer, which queries the database for matching places. The results are returned through the same layers back to the user.
+Design Note
+Filtering logic is handled in the Business Logic layer to maintain separation of concerns.
 
