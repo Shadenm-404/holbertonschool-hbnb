@@ -9,6 +9,7 @@ Design Note
 User-creation logic is isolated in the Business Logic layer to ensure security and consistency.
 
 2. Place Creation
+   
 Purpose
 Shows how a new place is created and linked to existing amenities.
 Explanation
