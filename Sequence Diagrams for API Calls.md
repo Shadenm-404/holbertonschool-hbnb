@@ -35,4 +35,10 @@ The user submits a review via the API. The Business Logic layer validates the re
 Design Note
 Centralised validation ensures data consistency and enforces business rules.
 
+Summary
+These sequence diagrams demonstrate:
+•	Clear separation between layers
+•	Consistent request–response flow
+•	REST-compliant API behaviour
+They provide a concise reference for implementing and understanding API interactions within the HBnB system.
 
