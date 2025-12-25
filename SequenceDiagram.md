@@ -18,3 +18,11 @@ The API forwards the place creation request to the Business Logic layer. Amenity
 Design Note
 Validating related entities preserves referential integrity.
 
+4. Review Submission
+Purpose
+Describes the process of submitting and validating a review.
+Explanation
+The user submits a review via the API. The Business Logic layer validates the review data and saves it in the database. Upon successful creation, the API returns an HTTP 201 Created response.
+Design Note
+Centralised validation ensures data consistency and enforces business rules.
+
