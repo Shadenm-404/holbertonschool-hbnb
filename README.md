@@ -118,3 +118,5 @@ The Amenity class represents optional features or services that can be associate
 - **Amenity – Place (Many-to-Many):**  
   Amenities can be shared across multiple places, allowing flexible and scalable feature assignment.
 ![HBnB Business Logic Class Diagram](part1/HBnB_Class%20Diagram_diagram.png)
+### 8. Summary
+The detailed class diagram provides a comprehensive and precise representation of the HBnB Business Logic layer. It serves as a reliable blueprint for implementation, ensuring that developers can translate business requirements into a robust, maintainable, and scalable system architecture.
