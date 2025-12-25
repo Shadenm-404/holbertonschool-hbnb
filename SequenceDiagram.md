@@ -17,8 +17,8 @@ Explanation
 The API forwards the place creation request to the Business Logic layer. Amenity IDs are validated against the database before saving the place. The created place is then returned to the user with an HTTP 201 Created response.
 Design Note
 Validating related entities preserves referential integrity.
-
-4. Review Submission
+________________________________________
+3. Review Submission
 Purpose
 Describes the process of submitting and validating a review.
 Explanation
