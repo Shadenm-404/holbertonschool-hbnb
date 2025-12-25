@@ -26,3 +26,12 @@ The user sends a request to the API to retrieve places. The API forwards filteri
 Design Note
 Filtering logic is handled in the Business Logic layer to maintain separation of concerns.
 
+4. Review Submission
+Purpose
+Describes the process of submitting and validating a review.
+Explanation
+The user submits a review via the API. The Business Logic layer validates the review data and saves it in the database. Upon successful creation, the API returns an HTTP 201 Created response.
+Design Note
+Centralised validation ensures data consistency and enforces business rules.
+
+
