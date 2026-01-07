@@ -73,25 +73,32 @@ class HBnBFacade:
         self.amenity_repo.update(amenity_id, amenity)
         return amenity 
         
-# ---------- Place methods ----------
+from app.models.place import Place
+
+
+class HBnBFacade:
+
+    # ---------- Place methods ----------
+
     def create_place(self, place_data):
-        # validate owner (user_id)
-        user_id = place_data.get("user_id")
-        owner = self.user_repo.get(user_id) if user_id else None
+        owner_id = place_data.get("owner_id")
+        owner = self.user_repo.get(owner_id)
         if not owner:
-            raise ValueError("User not found")
+            raise ValueError("Owner not found")
 
-        # create place (adjust keys to match your Place model)
-        place = Place(**place_data)
+        place = Place(
+            title=place_data.get("title"),
+            description=place_data.get("description"),
+            price=place_data.get("price"),
+            latitude=place_data.get("latitude"),
+            longitude=place_data.get("longitude"),
+            owner=owner
+        )
 
-        # (optional) attach amenities by ids if your model supports it
-        # If your Place model has amenities list of IDs, you can store them directly.
-        # If it has add_amenity(), then use it.
-        if "amenities" in place_data and hasattr(place, "add_amenity"):
-            for amenity_id in place_data.get("amenities", []):
-                amenity = self.amenity_repo.get(amenity_id)
-                if amenity:
-                    place.add_amenity(amenity)
+        for amenity_id in place_data.get("amenities", []):
+            amenity = self.amenity_repo.get(amenity_id)
+            if amenity:
+                place.add_amenity(amenity)
 
         self.place_repo.add(place)
         return place
@@ -107,11 +114,44 @@ class HBnBFacade:
         if not place:
             return None
 
-        allowed = {"name", "description", "price", "latitude", "longitude"}
-        updates = {k: v for k, v in place_data.items() if k in allowed}
+        if "title" in place_data:
+            title = place_data["title"]
+            if not isinstance(title, str) or not title.strip():
+                raise ValueError("title must be a non-empty string")
+            if len(title.strip()) > 100:
+                raise ValueError("title must be at most 100 characters")
+            place.title = title.strip()
 
-        for key, value in updates.items():
-            setattr(place, key, value)
+        if "description" in place_data:
+            description = place_data["description"]
+            if not isinstance(description, str):
+                raise TypeError("description must be a string")
+            place.description = description.strip()
 
-        self.place_repo.update(place_id, place)
+        if "price" in place_data:
+            price = place_data["price"]
+            if not isinstance(price, (int, float)) or price < 0:
+                raise ValueError("price must be a non-negative number")
+            place.price = float(price)
+
+        if "latitude" in place_data:
+            latitude = place_data["latitude"]
+            if not isinstance(latitude, (int, float)) or not -90 <= latitude <= 90:
+                raise ValueError("latitude must be between -90 and 90")
+            place.latitude = float(latitude)
+
+        if "longitude" in place_data:
+            longitude = place_data["longitude"]
+            if not isinstance(longitude, (int, float)) or not -180 <= longitude <= 180:
+                raise ValueError("longitude must be between -180 and 180")
+            place.longitude = float(longitude)
+
+        if "amenities" in place_data:
+            place.amenities.clear()
+            for amenity_id in place_data["amenities"]:
+                amenity = self.amenity_repo.get(amenity_id)
+                if amenity:
+                    place.add_amenity(amenity)
+
+        place.save()
         return place
