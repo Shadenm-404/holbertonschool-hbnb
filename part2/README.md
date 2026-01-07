@@ -12,7 +12,7 @@ The application enables the management of users, places, reviews, and amenities 
 
 ## 📂 Project Structure
 
-<img width="900" height="332" alt="image" src="https://github.com/user-attachments/assets/781f7786-1c24-4980-96e8-507728492c16" />
+<img width="500" height="332" alt="image" src="https://github.com/user-attachments/assets/781f7786-1c24-4980-96e8-507728492c16" />
 
 ---
 
