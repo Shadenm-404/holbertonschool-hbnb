@@ -130,7 +130,3 @@ class HBnBFacade:
 
         place.save()
         return place
-<<<<<<< HEAD
-
-=======
->>>>>>> 50707450d6fa67e2bffceb49fac20721914018f8
