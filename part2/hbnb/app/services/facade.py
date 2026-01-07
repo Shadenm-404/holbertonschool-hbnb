@@ -73,52 +73,55 @@ class HBnBFacade:
         self.amenity_repo.update(amenity_id, amenity)
         return amenity 
         
-    # ---------- Place methods ----------
-    def create_place(self, place_data):
-        owner = self.user_repo.get(place_data.get("owner_id"))
-        if not owner:
-            raise ValueError("Owner not found")
+# ---------- Place methods ----------
+def create_place(self, place_data):
+    owner = self.user_repo.get(place_data.get("owner_id"))
+    if not owner:
+        raise ValueError("Owner not found")
 
-        place = Place(
-            title=place_data.get("title"),
-            description=place_data.get("description"),
-            price=place_data.get("price"),
-            latitude=place_data.get("latitude"),
-            longitude=place_data.get("longitude"),
-            owner=owner
-        )
+    place = Place(
+        title=place_data.get("title"),
+        description=place_data.get("description"),
+        price=place_data.get("price"),
+        latitude=place_data.get("latitude"),
+        longitude=place_data.get("longitude"),
+        owner=owner
+    )
 
-        amenity_ids = place_data.get("amenities", [])
-        for amenity_id in amenity_ids:
+    amenity_ids = place_data.get("amenities", [])
+    for amenity_id in amenity_ids:
+        amenity = self.amenity_repo.get(amenity_id)
+        if amenity:
+            place.add_amenity(amenity)
+
+    self.place_repo.add(place)
+    return place
+
+
+def get_place(self, place_id):
+    return self.place_repo.get(place_id)
+
+
+def get_all_places(self):
+    return self.place_repo.get_all()
+
+
+def update_place(self, place_id, place_data):
+    place = self.place_repo.get(place_id)
+    if not place:
+        return None
+
+    allowed = {"title", "description", "price", "latitude", "longitude"}
+    for key, value in place_data.items():
+        if key in allowed:
+            setattr(place, key, value)
+
+    if "amenities" in place_data:
+        place.amenities.clear()
+        for amenity_id in place_data["amenities"]:
             amenity = self.amenity_repo.get(amenity_id)
             if amenity:
                 place.add_amenity(amenity)
 
-        self.place_repo.add(place)
-        return place
-
-    def get_place(self, place_id):
-        return self.place_repo.get(place_id)
-
-    def get_all_places(self):
-        return self.place_repo.get_all()
-
-    def update_place(self, place_id, place_data):
-        place = self.place_repo.get(place_id)
-        if not place:
-            return None
-
-        allowed = {"title", "description", "price", "latitude", "longitude"}
-        for key, value in place_data.items():
-            if key in allowed:
-                setattr(place, key, value)
-
-        if "amenities" in place_data:
-            place.amenities.clear()
-            for amenity_id in place_data["amenities"]:
-                amenity = self.amenity_repo.get(amenity_id)
-                if amenity:
-                    place.add_amenity(amenity)
-
-        place.save()
-        return place
+    place.save()
+    return place
