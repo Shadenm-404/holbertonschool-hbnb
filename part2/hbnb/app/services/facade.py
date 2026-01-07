@@ -47,27 +47,30 @@ class HBnBFacade:
         return user
 
 # ---------- Amenity methods ----------
-def create_amenity(self, amenity_data):
-    amenity = Amenity(**amenity_data)
-    self.amenity_repo.add(amenity)
-    return amenity
+    def create_amenity(self, amenity_data):
+        amenity = Amenity(**amenity_data)
+        self.amenity_repo.add(amenity)
+        return amenity
 
-def get_amenity(self, amenity_id):
-    return self.amenity_repo.get(amenity_id)
+    def get_amenity(self, amenity_id):
+        return self.amenity_repo.get(amenity_id)
 
-def get_all_amenities(self):
-    return self.amenity_repo.get_all()
+    def get_all_amenities(self):
+        return self.amenity_repo.get_all()
 
-def update_amenity(self, amenity_id, amenity_data):
-    amenity = self.amenity_repo.get(amenity_id)
-    if not amenity:
-        return None
+    def update_amenity(self, amenity_id, amenity_data):
+        amenity = self.amenity_repo.get(amenity_id)
+        if not amenity:
+            return None
 
-    allowed = {"name"}
-    updates = {k: v for k, v in amenity_data.items() if k in allowed}
+        allowed = {"name"}
+        updates = {k: v for k, v in amenity_data.items() if k in allowed}
 
-    amenity.update(updates)
-    return amenity
+        for key, value in updates.items():
+            setattr(amenity, key, value)
+
+        self.amenity_repo.update(amenity_id, amenity)
+        return amenity
 
     # Placeholder method for fetching a place by ID
     def get_place(self, place_id):
