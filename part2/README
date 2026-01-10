@@ -31,4 +31,3 @@ Implement core entities and constraints
 
 Build RESTful endpoints using Flask-RESTX
 
-Validate behavior through testing and correct HTTP responses
