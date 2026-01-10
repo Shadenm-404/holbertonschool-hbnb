@@ -13,4 +13,3 @@ Enforce business rules and constraints
 
 Coordinate between the API and repository layers
 
-Prevent invalid operations (e.g. Place with non-existing owner)
