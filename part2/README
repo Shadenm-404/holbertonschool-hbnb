@@ -23,3 +23,12 @@ Business Logic Layer: validation, rules, relationships
 
 Repository Layer: abstracts data storage (in-memory)
 
+Project Objectives
+
+Organize a clean modular project structure
+
+Implement core entities and constraints
+
+Build RESTful endpoints using Flask-RESTX
+
+Validate behavior through testing and correct HTTP responses
