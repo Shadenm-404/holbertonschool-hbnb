@@ -13,3 +13,14 @@ Enforce business rules and constraints
 
 Coordinate between the API and repository layers
 
+Architecture Overview
+
+The application follows a layered design:
+
+API Layer: handles HTTP requests and responses
+
+Business Logic Layer: validation, rules, relationships
+
+Repository Layer: abstracts data storage (in-memory)
+
+All layer communication is handled through the Facade
