@@ -4,3 +4,13 @@ HBnB – Part 2: Business Logic Layer
 This part of the HBnB project implements the Business Logic Layer (BL) and exposes it through RESTful API endpoints, following the architecture defined in Part 1.
 The project applies the Facade Design Pattern to centralize business operations and enforce separation between the API, Business Logic, and Repository layers.
 An in-memory persistence mechanism is used to manage entities, validation, and relationships.
+
+Business Logic Responsibilities
+
+Validate input data before creation/update
+
+Enforce business rules and constraints
+
+Coordinate between the API and repository layers
+
+Prevent invalid operations (e.g. Place with non-existing owner)
