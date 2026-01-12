@@ -83,6 +83,7 @@ part2/
 └── hbnb/
     ├── app/
     │   ├── api/
+    │   │   └── __init__.py
     │   │   └── v1/
     │   │       ├── users.py
     │   │       ├── places.py
@@ -90,6 +91,7 @@ part2/
     │   │       ├── amenities.py
     │   │       └── __init__.py
     │   ├── models/
+    │   │   ├── __init__.py
     │   │   ├── BaseModel.py
     │   │   ├── user.py
     │   │   ├── place.py
@@ -98,10 +100,19 @@ part2/
     │   │   └── validation.py
     │   ├── repositories/
     │   │   └── in_memory_repository.py
+    │   │   └── __init__.py
     │   ├── services/
     │   │   └── facade.py
+    │   └── persistence
+    │   │   └── __init__.py
+    │   │   └── repository.py
     │   └── __init__.py
     ├── run.py
+    ├── README.md
+    ├── config.py
+    ├── requirements.txt
+    ├── simple_test_report.md
+    ├── test_models.py
     ├── test_users.sh
     └── test_amenities_places.sh
 ```
