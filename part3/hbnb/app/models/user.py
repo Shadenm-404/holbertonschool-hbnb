@@ -1,26 +1,22 @@
-from app.models.BaseModel import BaseModel
+from sqlalchemy import Column, String, Boolean
+from flask_bcrypt import Bcrypt
 
-class User(BaseModel):
-    def __init__(self, email, password, first_name="", last_name=""):
-        super().__init__()
-        
-        # Basic validation
-        if not email or '@' not in email:
-            raise ValueError("Invalid email format")
-        
-        if not password or len(password) < 6:
-            raise ValueError("Password must be at least 6 characters")
-        
-        self.email = email
-        self.password = password
-        self.first_name = first_name or ""
-        self.last_name = last_name or ""
-    
-    def to_dict(self):
-        data = super().to_dict()
-        data.update({
-            "email": self.email,
-            "first_name": self.first_name,
-            "last_name": self.last_name
-        })
-        return data
+from app.models.base_model import Base, BaseModel
+
+bcrypt = Bcrypt()
+
+
+class User(BaseModel, Base):
+    __tablename__ = "users"
+
+    email = Column(String(128), nullable=False, unique=True)
+    password = Column(String(128), nullable=False)
+    first_name = Column(String(128), nullable=True)
+    last_name = Column(String(128), nullable=True)
+    is_admin = Column(Boolean, default=False)
+
+    def set_password(self, password):
+        self.password = bcrypt.generate_password_hash(password).decode("utf-8")
+
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.password, password)

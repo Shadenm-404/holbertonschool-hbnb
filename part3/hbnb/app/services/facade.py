@@ -3,7 +3,6 @@ from app.models.user import User
 from app.models.place import Place
 from app.models.review import Review
 from app.models.amenity import Amenity
-from app.repositories.sqlalchemy_repository import SQLAlchemyRepository
 
 
 class HBnBFacade:
@@ -16,22 +15,25 @@ class HBnBFacade:
     # ======================
     # Users
     # ======================
-    def create_user(self, user_data):
-        existing_users = self.user_repo.get_all()
-        for user in existing_users:
-            if user.email == user_data.get('email'):
-                raise ValueError("User with this email already exists")
+    def create_user(self, email, password, first_name=None, last_name=None):
+        if not email or not password:
+            raise ValueError("Email and password are required")
 
-        if 'email' not in user_data:
-            raise ValueError("Email is required")
+        existing_user = self.user_repo.get_by_email(email)
+        if existing_user:
+            raise ValueError("Email already exists")
 
         user = User(
-            email=user_data['email'],
-            password=user_data.get('password', ''),
-            first_name=user_data.get('first_name', ''),
-            last_name=user_data.get('last_name', '')
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            is_admin=False
         )
+
+        user.set_password(password)
+
         self.user_repo.add(user)
+
         return user
 
     def get_all_users(self):
@@ -44,16 +46,16 @@ class HBnBFacade:
     # Places
     # ======================
     def create_place(self, place_data):
-        owner_id = place_data.get('owner_id')
+        owner_id = place_data.get("owner_id")
         user = self.user_repo.get(owner_id)
         if not user:
             raise ValueError("Owner not found")
 
         place = Place(
-            title=place_data['title'],
+            title=place_data["title"],
             owner_id=owner_id,
-            description=place_data.get('description', ''),
-            price_per_night=place_data.get('price_per_night', 0)
+            description=place_data.get("description", ""),
+            price_per_night=place_data.get("price_per_night", 0),
         )
         self.place_repo.add(place)
         return place
@@ -68,8 +70,8 @@ class HBnBFacade:
     # Reviews
     # ======================
     def create_review(self, review_data):
-        user_id = review_data.get('user_id')
-        place_id = review_data.get('place_id')
+        user_id = review_data.get("user_id")
+        place_id = review_data.get("place_id")
 
         user = self.user_repo.get(user_id)
         if not user:
@@ -80,10 +82,10 @@ class HBnBFacade:
             raise ValueError("Place not found")
 
         review = Review(
-            text=review_data['text'],
+            text=review_data["text"],
             user_id=user_id,
             place_id=place_id,
-            rating=review_data.get('rating', 0)
+            rating=review_data.get("rating", 0),
         )
         self.review_repo.add(review)
         return review
@@ -95,10 +97,10 @@ class HBnBFacade:
     # Amenities
     # ======================
     def create_amenity(self, amenity_data):
-        if 'name' not in amenity_data:
+        if "name" not in amenity_data:
             raise ValueError("Amenity name is required")
 
-        amenity = Amenity(name=amenity_data['name'])
+        amenity = Amenity(name=amenity_data["name"])
         self.amenity_repo.add(amenity)
         return amenity
 
@@ -113,8 +115,8 @@ class HBnBFacade:
         if not amenity:
             raise ValueError("Amenity not found")
 
-        if 'name' in data:
-            amenity.name = data['name']
+        if "name" in data:
+            amenity.name = data["name"]
 
         return amenity
 
