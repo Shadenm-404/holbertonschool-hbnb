@@ -116,6 +116,51 @@ Part 2 delivers a functional backend implementation that transforms architectura
 By centralizing business logic through the Facade Pattern, enforcing validation rules, exposing RESTful APIs, and validating behavior through structured testing, this stage provides a solid and maintainable foundation for future enhancements such as persistent storage and authentication.
 
 ---
+
+# Part 3 – Database Integration and Persistence
+
+In Part 3, HBnB moves from temporary in-memory storage to a **relational database-backed system**, introducing persistent storage, enforced relationships, and scalable backend architecture. SQLAlchemy ORM maps Python models to tables, manages transactions, and enforces entity relationships, while preserving the existing API and layered design.
+
+---
+
+## Technologies
+
+| Technology          | Purpose                                                                                                   |
+|--------------------|-----------------------------------------------------------------------------------------------------------|
+| Python 3            | The main programming language used to implement the HBnB backend logic, handling API requests, data processing, and integration with the database. |
+| Flask / Flask-RESTX | Provides the framework for building RESTful API endpoints, request/response handling, and automatic Swagger documentation for interactive testing. |
+| SQLAlchemy ORM      | Maps Python models to database tables, manages sessions and transactions, enforces relationships between entities, and ensures data consistency. |
+| SQLite              | Lightweight relational database used to store persistent data for Users, Places, Reviews, and Amenities, supporting queries, constraints, and relationships. |
+| JWT Authentication  | Secures user access by issuing JSON Web Tokens, allowing authenticated interactions with protected endpoints while keeping credentials safe. |
+
+---
+
+## Key Updates from Part 2
+| Aspect                | Part 2 (In-memory)                                                                                     | Part 3 (Database)                                                                                                      |
+|----------------------|-------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| Data Storage          | Data was stored temporarily in Python objects and dictionaries, disappearing when the server restarted. | Data is now stored permanently in a relational database, ensuring that all entities persist across server restarts.  |
+| Persistence           | No long-term storage; any restart cleared all Users, Places, Reviews, and Amenities.                  | Full persistence using SQLAlchemy ORM ensures durable storage and long-term availability of all data.                  |
+| Relationships         | Relationships between entities (like Place belonging to User) were enforced only in code logic, which could be bypassed. | Relationships are now enforced at the database level with foreign keys, ensuring referential integrity and automatic consistency. |
+| Transactions          | No transaction management; changes were applied immediately without rollback capability.              | Transactions are managed via SQLAlchemy sessions, allowing commit/rollback to maintain data integrity in case of errors. |
+| Authentication        | User credentials were validated locally, without persistent storage.                                  | User validation now queries the database directly, with JWT tokens issued for secure authentication and protected access. |
+| Scalability / Reliability | Limited scalability; data loss on server restart, prone to inconsistency.                             | Highly scalable and reliable; persistent storage, enforced relationships, and proper transaction management support production-level usage. |
+
+---
+
+
+## Database Design – ER Diagram
+
+The ER Diagram below illustrates how **Users, Places, Reviews, and Amenities** are related, including primary keys, foreign keys, and association tables.
+
+<img src="part3/ER_diagram.png" width="800">
+
+---
+## Summary
+
+Part 3 completes the transition to a **persistent and scalable backend**, ensuring data integrity, secure authentication, and durable storage.  
+HBnB is now ready for future features, advanced extensions, and production-level deployment.
+
+---
 ## Authors
 
 ### Shaden Majed Alalwani  
