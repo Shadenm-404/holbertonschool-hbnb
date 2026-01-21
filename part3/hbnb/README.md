@@ -1,212 +1,233 @@
-# HBnB – Part 2: Business Logic Layer
+# HBnB – part3 : Database Integration and Persistence
 
-This part of the **HBnB** project focuses on implementing the **Business Logic Layer (BL)** and exposing it through **RESTful API endpoints**, following the architecture defined in **Part 1**.
-The project applies the **Facade Design Pattern** to centralize all business operations and enforce a clear separation between the Presentation Layer, Business Logic Layer, and Data Access Layer.  
-An **in-memory persistence mechanism** is used to manage entities and enforce business rules such as data validation and entity relationships.
-This stage establishes a clean, scalable, and maintainable backend foundation.
+This project represents **Part 3** of the HBnB (Holberton Bed & Breakfast) application.  
+In this phase, the system transitions from **in-memory data storage** to a **database-backed persistence layer** using a relational database.
 
----
-
-## Business Logic Responsibilities
-
-The Business Logic Layer is responsible for:
-
-- Validating input data before object creation or update  
-- Enforcing business rules and application constraints  
-- Coordinating interactions between the API layer and the repository layer  
-- Preventing invalid operations (e.g. creating a Place with a non-existing owner)
-
-By centralizing these responsibilities, the BL ensures consistent and reliable application behavior regardless of how the API is accessed.
+The primary goal of this part is to introduce permanent data storage while preserving the existing API behavior and maintaining a clean, scalable architecture.
 
 ---
 
-## Architecture Overview
+## Objectives
 
-The application follows a layered architecture with clear separation of concerns:
+The objectives of this phase are to:
 
-- The **API Layer** handles HTTP requests and responses.
-- The **Business Logic Layer** enforces validation, business rules, and entity relationships.
-- The **Repository Layer** abstracts data storage and access.
-- All communication between layers is coordinated through the **Facade**.
-
-This design improves maintainability, scalability, and testability.
-
----
-
-## Facade Pattern
-
-All business operations in the application are routed through a single access point known as the **Facade**.
-
-The API layer never interacts directly with models or repositories.  
-Instead, validation, entity creation, and data coordination are centralized within the Facade, reducing coupling between layers and resulting in a cleaner and more maintainable codebase.
+- Replace in-memory persistence with database storage
+- Integrate SQLAlchemy as the Object Relational Mapper (ORM)
+- Implement proper session and transaction management
+- Maintain clear separation between application layers
+- Ensure data consistency and long-term persistence
 
 ---
 
-## Repository Layer
+## Architecture 
 
-The Repository Layer acts as an abstraction over data storage.
-
-In this implementation, persistence is simulated using in-memory Python data structures.  
-Data is reset when the server restarts, which aligns with the scope of this project phase and supports rapid development and testing.
-
----
-
-## Project Objectives
-
-By the end of this project, the following objectives are achieved:
-
-### 1. Project Structure Setup
-- Organize the project using a modular architecture following Python and Flask best practices.
-- Separate Presentation, Business Logic, and Data Access layers.
-
-### 2. Business Logic Implementation
-- Implement core domain entities: User, Place, Review, and Amenity.
-- Define relationships and constraints between entities.
-- Apply the Facade Pattern to simplify communication between layers.
-
-### 3. RESTful API Development
-- Implement CRUD operations for Users, Places, Reviews, and Amenities.
-- Use **Flask-RESTX** to define and document the API.
-- Serialize related entity data when required (e.g. including owner information when retrieving a Place).
-
-### 4. API Testing and Validation
-- Verify correct behavior for valid and invalid requests.
-- Test edge cases such as missing fields and non-existent IDs.
-- Ensure consistent JSON responses and correct HTTP status codes.
-
----
-
-## Project Structure
+The application follows a layered architecture with clear responsibility boundaries:
 
 ```
-part2/
+Client
+↓
+API Layer (Flask / Flask-RESTX)
+↓
+Business Logic Layer (Facade Pattern)
+↓
+Persistence Layer (SQLAlchemy + Relational Database)
+```
+
+
+This structure improves maintainability, scalability, and testability.
+
+---
+
+## Project Structure - Actual Implementation
+
+The following directory structure reflects the **actual file layout used in Part 3**,
+based strictly on the implemented project files.
+
+```
+part3/
 └── hbnb/
-    ├── app/
-    │   ├── api/
-    │   │   └── v1/
-    │   │       ├── users.py
-    │   │       ├── places.py
-    │   │       ├── review.py
-    │   │       ├── amenities.py
-    │   │       └── __init__.py
-    │   ├── models/
-    │   │   ├── BaseModel.py
-    │   │   ├── user.py
-    │   │   ├── place.py
-    │   │   ├── amenity.py
-    │   │   ├── review.py
-    │   │   └── validation.py
-    │   ├── repositories/
-    │   │   └── in_memory_repository.py
-    │   ├── services/
-    │   │   └── facade.py
-    │   └── __init__.py
-    ├── run.py
-    ├── test_users.sh
-    └── test_amenities_places.sh
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── init.py
+│   │   │   └── v1/
+│   │   │       ├── users.py
+│   │   │       ├── places.py
+│   │   │       ├── reviews.py
+│   │   │       ├── amenities.py
+│   │   │       ├── auth.py
+│   │   │       └── init.py
+│   │   ├── models/
+│   │   │   ├── init.py
+│   │   │   ├── base_model.py
+│   │   │   ├── user.py
+│   │   │   ├── place.py
+│   │   │   ├── amenity.py
+│   │   │   └── review.py
+│   │   ├── db/
+│   │   │   ├── database.py
+│   │   │   └── session.py
+│   │   ├── repositories/
+│   │   │   ├── amenity_repository.py 
+│   │   │   ├── place_repository.py
+│   │   │   ├── review_repository.py
+│   │   │   ├── sqlalchemy_repository.py
+│   │   │   ├── user_repository.py
+│   │   │   └── init.py
+│   │   ├── services/
+│   │   │   ├── init.py
+│   │   │   └── facade.py
+│   │   └── init.py
+│   ├── sql/
+│   │   ├── create_tables.sql
+│   │   ├── insert_admin.sql
+│   │   └── insert_amenities.sql
+│   ├── run.py
+│   ├── config.py
+│   ├── requirements.txt
+│   ├── test_amenities.sh
+│   ├── test_places_reviews.sh
+│   └── README.md
+│
+└── README.md
 ```
 ---
-## Files Description
+## SQL and Database Files
 
-| Layer | File | Description |
-|------|------|-------------|
-| API | `users.py` | User creation, retrieval, and update REST endpoints |
-| API | `places.py` | Place creation and retrieval REST endpoints |
-| API | `amenities.py` | Amenity creation, retrieval, and update REST endpoints |
-| Models | `BaseModel.py` | Base entity providing `id`, `created_at`, and `updated_at` |
-| Models | `user.py` | User entity definition |
-| Models | `place.py` | Place entity with owner validation |
-| Models | `amenity.py` | Amenity entity definition |
-| Models | `review.py` | Review entity definition linked to users and places |
-| Models | `validation.py` | Centralized validation and input checking logic |
-| Services | `facade.py` | Central Business Logic Layer implementing the Facade Pattern |
-| Repository | `in_memory_repository.py` | In-memory data storage abstraction |
-| Testing | `test_users.sh` | Shell script testing user-related endpoints (Tasks 1–3) |
-| Testing | `test_amenities_places.sh` | Shell script testing amenity and place endpoints (Tasks 4–6) |
+- `repositories/sqlalchemy_repository.py`
 
----
-## Supported API Endpoints
+  Handles database operations using SQLAlchemy.
+  It is responsible for saving, retrieving, and updating data in the database, replacing in-memory storage with persistent SQL-based storage.
 
-The application exposes RESTful endpoints that allow interaction with core entities such as Users, Places, and Amenities.  
-All endpoints follow REST conventions and return structured JSON responses.  
-Swagger documentation is provided using Flask-RESTX for interactive API exploration.
+- `api/v1/auth.py`
 
----
-## HTTP Status Codes
+  Manages authentication-related API endpoints.
+  It verifies user credentials using stored database data and prepares the application for secure access.
 
-| Status Code | Description |
-|------------|-------------|
-| 200 | Successful retrieval or update operation |
-| 201 | Resource created successfully |
-| 400 | Invalid or missing input data |
-| 404 | Requested resource not found |
+- `sql/create_tables.sql`
+
+  Contains SQL statements used to create the database tables and define the schema structure.
+
+- `sql/insert_admin.sql`
+
+  Provides initial SQL data for the database, such as inserting a default or administrative user.
+
+- `sql/insert_amenities.sql`
+
+  Provides initial SQL data for the database, such as inserting predefined amenity records.
+
+- `Database Integration (db)`
+
+  The database layer is responsible for establishing the connection, managing sessions, and ensuring data is stored persistently.
+  It acts as the foundation that links the application logic with the SQL database.
 
 ---
 
-## Requirements File (requirements.txt)
+## Table 1: API Layer (v1) – Changes & Responsibilities
+| File | Entity | Endpoints | Part 3 Updates | Responsibility |
+|------|--------|-----------|----------------|----------------|
+| api/v1/places.py | Place | POST /places | Connected place creation to database via Facade | Handle place creation requests |
+|  |  | GET /places | Retrieve places from database instead of memory | List all places |
+|  |  | GET /places/<id> | Fetch a specific place from database | Retrieve a single place |
+| api/v1/reviews.py | Review | POST /reviews | Added duplicate review prevention logic | Create reviews with validation |
+|  |  | GET /reviews | Read reviews from database | List all reviews |
+|  |  | GET /reviews/<id> | Retrieve a review by ID | Fetch a single review |
+| api/v1/users.py | User | POST /users | Persist users in database | Create user accounts |
+|  |  | GET /users | Retrieve users from database | List users |
+| api/v1/auth.py | Auth | POST /auth/login | Authenticate users using database data | Issue JWT access tokens |
+| api/v1/amenities.py | Amenity | POST /amenities | Store amenities in database instead of memory | Create amenities (admin-level) |
+|  |  | GET /amenities | Retrieve amenities from database | List all amenities |
+|  |  | GET /amenities/<id> | Fetch a specific amenity by ID | Retrieve a single amenity |
 
-The ```requirements.txt``` file contains all Python dependencies required to run the application correctly, including Flask and Flask-RESTX.
-Install dependencies using:
+---
+## Table 2: Models Layer – SQLAlchemy ORM Updates
+| File | Model | Table | Core Fields | Relationships | Part 3 Enhancements |
+|------|-------|-------|-------------|---------------|---------------------|
+| models/base_model.py | BaseModel | — | id, created_at, updated_at | — | Integrated with SQLAlchemy declarative base |
+| models/user.py | User | users | email, password, is_admin | places, reviews | Added ORM relationships and persistent storage |
+| models/place.py | Place | places | title, owner_id, price_per_night | owner, reviews | Added foreign key to User and ORM relationships |
+| models/review.py | Review | reviews | text, rating, user_id, place_id | user, place | Added foreign keys and unique constraint to prevent duplicates |
+| models/amenity.py | Amenity | amenities | name | places | Persisted amenities using SQLAlchemy ORM |
 
+---
+## Notes
+- The API layer is responsible only for request handling and response formatting.
+- Business rules and validation logic are centralized in the Facade layer.
+- All entity relationships are defined exclusively in the Models layer.
+- Duplicate review prevention is enforced at both:
+- Application level (Facade validation)
+- Database level (unique constraint).
+---
+
+## Testing
+*The project can be tested using:*
+
+- Manual API testing with `curl`
+- Automated test scripts located in the `tests/` directory
+
+**Example request:**
+```
+curl -X POST http://127.0.0.1:5000/api/v1/users \
+-H "Content-Type: application/json" \
+-d '{"email":"test@mail.com","password":"1234"}'
+```
+
+## How to Run the Project
+
+1- **Install dependencies:**
 ```
 pip install -r requirements.txt
 ```
-
-### Running the Application
-Start the Flask server locally:
-
-``` 
+2- **Start the application:**
+```
 python3 run.py
 ```
 
-The project includes two shell scripts for automated API testing:
-
-- `test_users.sh` tests functionality implemented in Tasks 1, 2, and 3 (User operations).
-- `test_amenities_places.sh` tests functionality implemented in Tasks 4, 5, and 6 (Amenity and Place operations).
-
---- 
-### Execute the scripts as follows:
+3- **Access the API:**
 ```
-./test_users.sh
-./test_amenities_places.sh
+http://127.0.0.1:5000/api/v1/
 ```
+---
+## Test Results
 
-### Test Script Behavior
+This section presents the results of the executed tests for the main system entities.  
+All tests were performed after completing the database integration in Part 3 to ensure correct persistence, validation, and API behavior.
 
-Each test script sends a sequence of HTTP requests that:
+---
+### 1. User Tests
 
-1. Create resources using POST requests
-2. Retrieve resources using GET requests
-3. Update resources using PUT requests
-4. Trigger invalid operations to verify error handling
+<img src="https://github.com/user-attachments/assets/590dbbef-0db9-4d0b-8b96-3e8cc10e0fb8" alt="User Test 1" width="450">
 
-**All requests include the required header:**
-
-``Content-Type: application/json``
-
---- 
-## Expected Output
-**When the test scripts are executed, the terminal displays:**
-
-○ HTTP response headers
-
-○ HTTP status codes (e.g. 200, 201, 400, 404)
-
-○ JSON response bodies returned by the API
-
-**A successful test execution is indicated by:**
-
-○ Correct HTTP status codes
-
-○ Valid JSON responses
-
-○ Error messages appearing only for intentionally invalid requests
-
-○ No crashes or unhandled exceptions
+<img src="https://github.com/user-attachments/assets/531e4c22-571e-4ed9-95a4-986e029aa9ac" alt="User Test 2" width="450">
 
 ---
 
-## Summary
-This project implements the Business Logic Layer of the HBnB application using a clean, layered architecture.
-Business rules are centralized through the Facade Pattern, with in-memory persistence and structured testing to ensure correctness, reliability, and maintainability.
+### 2. Place & Review Tests
+
+<img src="https://github.com/user-attachments/assets/16eaa084-f50d-4793-9409-5aea3a640782" alt="Place Test" width="450">
+
+<img src="https://github.com/user-attachments/assets/a51d2c2f-7fad-4a54-81ca-d280ec194493" alt="Review Test" width="450">
+
+---
+
+### 3. Amenity Tests
+
+<img src="https://github.com/user-attachments/assets/cc2dfa3e-6a3a-4daf-8196-cacf69ed7ba2" alt="Amenity Test 1" width="450">
+
+<img src="https://github.com/user-attachments/assets/e8c6128f-0dba-4e39-9f38-3483b2f26cf2" alt="Amenity Test 2" width="450">
+
+---
+
+### Key Improvements from Part 2
+
+- Introduction of database-backed persistence
+- SQLAlchemy ORM integration
+- Improved separation of concerns
+- Enhanced scalability and maintainability
+---
+
+## Conclusion
+
+Part 3 of the HBnB project successfully transitions the application from in-memory storage to a fully persistent, database-backed architecture.
+By integrating SQLAlchemy, implementing a clean repository and facade pattern, and enforcing proper relationships and business rules, the system achieves improved scalability, reliability, and maintainability.
+This phase establishes a solid foundation for future extensions, advanced features, and production-ready deployment.
 
