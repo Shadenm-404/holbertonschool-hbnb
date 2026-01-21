@@ -108,29 +108,39 @@ class HBnBFacade:
     # ======================
     # Amenities -old-
     # ======================
-    def create_amenity(self, amenity_data):
-        if "name" not in amenity_data:
-            raise ValueError("Amenity name is required")
+def create_amenity(self, amenity_data):
+    if "name" not in amenity_data or not amenity_data["name"]:
+        raise ValueError("Amenity name is required")
 
-        amenity = Amenity(name=amenity_data["name"])
-        self.amenity_repo.add(amenity)
-        return amenity
+    existing = self.amenity_repo.get_by_name(amenity_data["name"])
+    if existing:
+        raise ValueError("Amenity already exists")
 
-    def get_all_amenities(self):
-        return self.amenity_repo.get_all()
+    amenity = Amenity(name=amenity_data["name"])
+    self.amenity_repo.add(amenity)
+    return amenity
 
-    def get_amenity(self, amenity_id):
-        return self.amenity_repo.get(amenity_id)
 
-    def update_amenity(self, amenity_id, data):
-        amenity = self.amenity_repo.get(amenity_id)
-        if not amenity:
-            raise ValueError("Amenity not found")
+def get_all_amenities(self):
+    return self.amenity_repo.get_all()
 
-        if "name" in data:
-            amenity.name = data["name"]
 
-        return amenity
+def get_amenity(self, amenity_id):
+    amenity = self.amenity_repo.get_by_id(amenity_id)
+    if not amenity:
+        raise ValueError("Amenity not found")
+    return amenity
 
+
+def update_amenity(self, amenit  يعنيy_id, data):
+    amenity = self.amenity_repo.get_by_id(amenity_id)
+    if not amenity:
+        raise ValueError("Amenity not found")
+
+    if "name" in data and data["name"]:
+        amenity.name = data["name"]
+
+    self.session.commit()
+    return amenity
 
 facade = HBnBFacade()
