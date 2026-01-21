@@ -132,7 +132,7 @@ def get_amenity(self, amenity_id):
     return amenity
 
 
-def update_amenity(self, amenit  يعنيy_id, data):
+def update_amenity(self, amenity_id, data):
     amenity = self.amenity_repo.get_by_id(amenity_id)
     if not amenity:
         raise ValueError("Amenity not found")
