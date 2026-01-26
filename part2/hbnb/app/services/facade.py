@@ -17,22 +17,31 @@ class HBnBFacade:
     # ======================
     
     def create_user(self, user_data):
-        existing_users = self.user_repo.get_all()
-        for user in existing_users:
-            if user.email == user_data.get('email'):
-                raise ValueError("User with this email already exists")
+        if not isinstance(user_data, dict):
+            raise TypeError("user_data must be a dictionary.")
 
-        if 'email' not in user_data:
+        email = user_data.get("email")
+        if email is None:
             raise ValueError("Email is required")
 
+        existing_users = self.user_repo.get_all()
+        for user in existing_users:
+            if user.email == email:
+                raise ValueError("User with this email already exists")
+
+        first_name = user_data.get("first_name", "")
+        last_name = user_data.get("last_name", "")
+
         user = User(
-            email=user_data['email'],
-            password=user_data.get('password', ''),
-            first_name=user_data.get('first_name', ''),
-            last_name=user_data.get('last_name', '')
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            is_admin=user_data.get("is_admin", False)
         )
+
         self.user_repo.add(user)
         return user
+
 
     def get_all_users(self):
         return self.user_repo.get_all()
