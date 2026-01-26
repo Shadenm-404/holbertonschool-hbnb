@@ -194,8 +194,18 @@ class HBnBFacade:
     # Reviews
     # ======================
     def create_review(self, review_data):
-        user_id = review_data.get('user_id')
-        place_id = review_data.get('place_id')
+        if not isinstance(review_data, dict):
+            raise TypeError("review_data must be a dictionary.")
+
+        text = review_data.get("text")
+        rating = review_data.get("rating")
+        user_id = review_data.get("user_id")
+        place_id = review_data.get("place_id")
+
+        if user_id is None:
+            raise ValueError("user_id is required.")
+        if place_id is None:
+            raise ValueError("place_id is required.")
 
         user = self.user_repo.get(user_id)
         if not user:
@@ -205,17 +215,70 @@ class HBnBFacade:
         if not place:
             raise ValueError("Place not found")
 
-        review = Review(
-            text=review_data['text'],
-            user_id=user_id,
-            place_id=place_id,
-            rating=review_data.get('rating', 0)
-        )
+        review = Review(text=text, rating=rating, place=place, user=user)
+
         self.review_repo.add(review)
+
+        place.add_review(review)
+
         return review
+
+    def get_review(self, review_id):
+        return self.review_repo.get(review_id)
 
     def get_all_reviews(self):
         return self.review_repo.get_all()
+
+    def get_reviews_by_place(self, place_id):
+        place = self.place_repo.get(place_id)
+        if not place:
+            return None 
+            
+        return list(getattr(place, "reviews", []))
+
+    def update_review(self, review_id, data):
+        review = self.review_repo.get(review_id)
+        if not review:
+            return None
+
+        if not isinstance(data, dict):
+            raise TypeError("data must be a dictionary.")
+
+        if "text" in data:
+            text = data["text"]
+            if not isinstance(text, str):
+                raise TypeError("text must be a string.")
+            text = text.strip()
+            if not text:
+                raise ValueError("text is required.")
+            review.text = text
+
+        if "rating" in data:
+            rating = data["rating"]
+            if not isinstance(rating, int):
+                raise TypeError("rating must be an integer.")
+            if rating < 1 or rating > 5:
+                raise ValueError("rating must be between 1 and 5.")
+            review.rating = rating
+
+        review.save()
+        return review
+
+    def delete_review(self, review_id):
+        review = self.review_repo.get(review_id)
+        if not review:
+            return None
+
+        place = getattr(review, "place", None)
+        if place and hasattr(place, "reviews"):
+            try:
+                place.reviews = [r for r in place.reviews if r.id != review.id]
+                place.save()
+            except Exception:
+                pass
+
+        self.review_repo.delete(review_id)
+        return review
 
     # ======================
     # Amenities
