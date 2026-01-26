@@ -26,6 +26,9 @@ update_place_model = api.model('UpdatePlace', {
     'amenities': fields.List(fields.String, description='List of amenity IDs')
 })
 
+# ======================
+# Helpers
+# ======================
 
 def _user_public_dict(user):
     data = user.to_dict() if hasattr(user, "to_dict") else {}
@@ -43,18 +46,19 @@ def _place_basic(place):
 
 
 def _place_full(place):
-    # owner details
     owner_obj = getattr(place, "owner", None)
     owner_dict = _user_public_dict(owner_obj) if owner_obj else None
     owner_id = owner_obj.id if owner_obj else None
 
-    # amenities details
     amenities = getattr(place, "amenities", []) or []
-    amenities_details = []
-    amenities_ids = []
+    amenities_list = []
+    amenity_ids = []
+
     for a in amenities:
-        amenities_ids.append(a.id)
-        amenities_details.append(a.to_dict() if hasattr(a, "to_dict") else {"id": a.id})
+        amenity_ids.append(a.id)
+        amenities_list.append(
+            a.to_dict() if hasattr(a, "to_dict") else {"id": a.id}
+        )
 
     return {
         "id": place.id,
@@ -64,17 +68,17 @@ def _place_full(place):
         "latitude": place.latitude,
         "longitude": place.longitude,
 
-        # include BOTH to satisfy tests
+        # owner
         "owner_id": owner_id,
         "owner": owner_dict,
 
-        "amenities": amenities_ids,              # as IDs (input style)
-        "amenities_details": amenities_details,  # as nested objects (output requirement)
+        # amenities
+        "amenities": amenities_list,   # nested details (المطلوب)
+        "amenity_ids": amenity_ids,    # IDs (احتياط للاختبارات)
 
         "created_at": place.created_at.isoformat() if hasattr(place, "created_at") else None,
         "updated_at": place.updated_at.isoformat() if hasattr(place, "updated_at") else None,
     }
-
 
 # ======================
 # Routes
