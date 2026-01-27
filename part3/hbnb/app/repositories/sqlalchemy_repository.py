@@ -1,7 +1,7 @@
 class SQLAlchemyRepository:
     """
     Generic SQLAlchemy repository.
-    This class provides basic CRUD operations.
+    Provides basic CRUD operations.
     """
 
     def __init__(self, session, model):
