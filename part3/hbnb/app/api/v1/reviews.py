@@ -19,12 +19,14 @@ review_update_model = api.model("ReviewUpdate", {
 @api.route("/")
 class Reviews(Resource):
     def get(self):
+        """Get all reviews"""
         reviews = facade.get_all_reviews()
         return [review.to_dict() for review in reviews], 200
 
     @api.expect(review_create_model, validate=True)
     @jwt_required()
     def post(self):
+        """Create a new review (authenticated)"""
         current_user_id = get_jwt_identity()
         data = api.payload or {}
 
@@ -33,14 +35,14 @@ class Reviews(Resource):
         if not place:
             api.abort(404, "Place not found")
 
-        # منع صاحب المكان يراجع مكانه
+        # ممنوع تراجع مكانك (حسب التوثيق: 400)
         if place.owner_id == current_user_id:
-            api.abort(403, "You cannot review your own place")
+            api.abort(400, "You cannot review your own place")
 
-        # منع التكرار (عندك method جاهزة)
+        # ممنوع تكرر نفس الريفيو لنفس المكان
         existing = facade.review_repo.get_by_user_and_place(current_user_id, place_id)
         if existing:
-            api.abort(400, "Review already exists for this user and place")
+            api.abort(400, "You have already reviewed this place")
 
         try:
             review = facade.create_review({
@@ -57,6 +59,7 @@ class Reviews(Resource):
 @api.route("/<string:review_id>")
 class ReviewResource(Resource):
     def get(self, review_id):
+        """Get a review by id"""
         review = facade.get_review(review_id)
         if not review:
             api.abort(404, "Review not found")
@@ -65,6 +68,7 @@ class ReviewResource(Resource):
     @api.expect(review_update_model, validate=True)
     @jwt_required()
     def put(self, review_id):
+        """Update a review (owner or admin)"""
         review = facade.get_review(review_id)
         if not review:
             api.abort(404, "Review not found")
@@ -73,8 +77,9 @@ class ReviewResource(Resource):
         is_admin = claims.get("is_admin", False)
         current_user_id = get_jwt_identity()
 
+        # حسب التوثيق: Unauthorized action
         if not is_admin and review.user_id != current_user_id:
-            api.abort(403, "Forbidden")
+            api.abort(403, "Unauthorized action")
 
         data = api.payload or {}
 
@@ -85,3 +90,21 @@ class ReviewResource(Resource):
 
         facade.review_repo.update()
         return review.to_dict(), 200
+
+    @jwt_required()
+    def delete(self, review_id):
+        """Delete a review (owner or admin)"""
+        review = facade.get_review(review_id)
+        if not review:
+            api.abort(404, "Review not found")
+
+        claims = get_jwt()
+        is_admin = claims.get("is_admin", False)
+        current_user_id = get_jwt_identity()
+
+        # حسب التوثيق: Unauthorized action
+        if not is_admin and review.user_id != current_user_id:
+            api.abort(403, "Unauthorized action")
+
+        facade.review_repo.delete(review)
+        return {"message": "Review deleted"}, 200
