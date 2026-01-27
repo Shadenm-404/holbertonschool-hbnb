@@ -7,5 +7,4 @@ class UserRepository(SQLAlchemyRepository):
         super().__init__(session, User)
 
     def get_by_email(self, email):
-        """Return a user by email"""
         return self.session.query(User).filter_by(email=email).first()
