@@ -1,3 +1,5 @@
+# app/api/v1/reviews.py
+
 from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from app.services.facade import facade
@@ -19,14 +21,12 @@ review_update_model = api.model("ReviewUpdate", {
 @api.route("/")
 class Reviews(Resource):
     def get(self):
-        """Get all reviews"""
         reviews = facade.get_all_reviews()
-        return [review.to_dict() for review in reviews], 200
+        return [r.to_dict() for r in reviews], 200
 
     @api.expect(review_create_model, validate=True)
     @jwt_required()
     def post(self):
-        """Create a new review (authenticated)"""
         current_user_id = get_jwt_identity()
         data = api.payload or {}
 
@@ -35,21 +35,20 @@ class Reviews(Resource):
         if not place:
             api.abort(404, "Place not found")
 
-        # ممنوع تراجع مكانك (حسب التوثيق: 400)
+        # حسب التوثيق: 400
         if place.owner_id == current_user_id:
             api.abort(400, "You cannot review your own place")
 
-        # ممنوع تكرر نفس الريفيو لنفس المكان
         existing = facade.review_repo.get_by_user_and_place(current_user_id, place_id)
         if existing:
             api.abort(400, "You have already reviewed this place")
 
         try:
             review = facade.create_review({
-                "text": data["text"],
-                "rating": data["rating"],
+                "text": data.get("text"),
+                "rating": data.get("rating"),
                 "place_id": place_id,
-                "user_id": current_user_id
+                "user_id": current_user_id,
             })
             return review.to_dict(), 201
         except ValueError as e:
@@ -59,7 +58,6 @@ class Reviews(Resource):
 @api.route("/<string:review_id>")
 class ReviewResource(Resource):
     def get(self, review_id):
-        """Get a review by id"""
         review = facade.get_review(review_id)
         if not review:
             api.abort(404, "Review not found")
@@ -68,7 +66,6 @@ class ReviewResource(Resource):
     @api.expect(review_update_model, validate=True)
     @jwt_required()
     def put(self, review_id):
-        """Update a review (owner or admin)"""
         review = facade.get_review(review_id)
         if not review:
             api.abort(404, "Review not found")
@@ -77,7 +74,6 @@ class ReviewResource(Resource):
         is_admin = claims.get("is_admin", False)
         current_user_id = get_jwt_identity()
 
-        # حسب التوثيق: Unauthorized action
         if not is_admin and review.user_id != current_user_id:
             api.abort(403, "Unauthorized action")
 
@@ -85,15 +81,23 @@ class ReviewResource(Resource):
 
         if "text" in data and data["text"] is not None:
             review.text = data["text"]
+
         if "rating" in data and data["rating"] is not None:
-            review.rating = data["rating"]
+            try:
+                rating = int(data["rating"])
+            except (TypeError, ValueError):
+                api.abort(400, "Rating must be between 1 and 5")
+
+            if not (1 <= rating <= 5):
+                api.abort(400, "Rating must be between 1 and 5")
+
+            review.rating = rating
 
         facade.review_repo.update()
         return review.to_dict(), 200
 
     @jwt_required()
     def delete(self, review_id):
-        """Delete a review (owner or admin)"""
         review = facade.get_review(review_id)
         if not review:
             api.abort(404, "Review not found")
@@ -102,7 +106,6 @@ class ReviewResource(Resource):
         is_admin = claims.get("is_admin", False)
         current_user_id = get_jwt_identity()
 
-        # حسب التوثيق: Unauthorized action
         if not is_admin and review.user_id != current_user_id:
             api.abort(403, "Unauthorized action")
 
