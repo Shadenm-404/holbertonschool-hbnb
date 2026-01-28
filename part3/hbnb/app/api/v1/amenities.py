@@ -1,3 +1,5 @@
+# app/api/v1/amenities.py
+
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required, get_jwt
 from app.services.facade import facade
@@ -30,7 +32,7 @@ class AmenityList(Resource):
     def post(self):
         require_admin()
         try:
-            amenity = facade.create_amenity(api.payload)
+            amenity = facade.create_amenity(api.payload or {})
             return amenity.to_dict(), 201
         except ValueError as e:
             api.abort(400, str(e))
@@ -39,18 +41,21 @@ class AmenityList(Resource):
 @api.route("/<string:amenity_id>")
 class AmenityResource(Resource):
     def get(self, amenity_id):
-        try:
-            amenity = facade.get_amenity(amenity_id)
-            return amenity.to_dict(), 200
-        except ValueError:
+        amenity = facade.get_amenity(amenity_id)
+        if not amenity:
             api.abort(404, "Amenity not found")
+        return amenity.to_dict(), 200
 
     @api.expect(update_amenity_model, validate=True)
     @jwt_required()
     def put(self, amenity_id):
         require_admin()
         try:
-            amenity = facade.update_amenity(amenity_id, api.payload)
+            amenity = facade.update_amenity(amenity_id, api.payload or {})
             return amenity.to_dict(), 200
         except ValueError as e:
-            api.abort(404, str(e))
+            # إذا "Amenity not found" -> 404 ، غيره غالبًا 400
+            msg = str(e)
+            if msg == "Amenity not found":
+                api.abort(404, msg)
+            api.abort(400, msg)
