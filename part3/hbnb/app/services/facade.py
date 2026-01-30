@@ -55,6 +55,8 @@ class HBnBFacade:
             title=title,
             description=(place_data.get("description") or ""),
             price_per_night=float(place_data.get("price_per_night") or 0.0),
+            latitude=place_data.get("latitude"),
+            longitude=place_data.get("longitude"),
             owner_id=owner_id,
         )
         return self.place_repo.add(place)
@@ -74,7 +76,12 @@ class HBnBFacade:
             raise ValueError("Review text is required")
 
         rating = review_data.get("rating")
-        if rating is None or not (1 <= int(rating) <= 5):
+        try:
+            rating_int = int(rating)
+        except (TypeError, ValueError):
+            raise ValueError("Rating must be between 1 and 5")
+
+        if not (1 <= rating_int <= 5):
             raise ValueError("Rating must be between 1 and 5")
 
         user_id = review_data.get("user_id")
@@ -93,14 +100,15 @@ class HBnBFacade:
 
         existing = self.review_repo.get_by_user_and_place(user_id, place_id)
         if existing:
-            raise ValueError("Review already exists for this user and place")
+            raise ValueError("You have already reviewed this place")
 
         review = Review(
             text=text,
-            rating=int(rating),
+            rating=rating_int,
             user_id=user_id,
             place_id=place_id,
         )
+
         return self.review_repo.add(review)
 
     def get_all_reviews(self):
