@@ -152,7 +152,7 @@ In Part 3, HBnB moves from temporary in-memory storage to a **relational databas
 
 The ER Diagram below illustrates how **Users, Places, Reviews, and Amenities** are related, including primary keys, foreign keys, and association tables.
 
-<img src="part3/ER_diagram.png" width="400">
+<img src="part3/ER_diagram.png" width="500">
 
 ---
 ## Summary
