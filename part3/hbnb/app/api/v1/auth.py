@@ -17,7 +17,7 @@ token_model = api.model("Token", {
 @api.route("/login")
 class Login(Resource):
 
-    @api.expect(login_model, validate=True)  # ✅ important: validate missing fields -> 400
+    @api.expect(login_model, validate=True)  
     @api.marshal_with(token_model)
     def post(self):
         data = api.payload or {}
@@ -25,7 +25,6 @@ class Login(Resource):
         email = (data.get("email") or "").strip()
         password = data.get("password")
 
-        # ✅ extra safety (even with validate=True)
         if not email or not password:
             api.abort(400, "Missing email or password")
 
