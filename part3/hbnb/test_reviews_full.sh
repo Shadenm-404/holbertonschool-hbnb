@@ -8,9 +8,7 @@ echo "=============================="
 echo " REVIEWS FULL TEST STARTED"
 echo "=============================="
 
-# ------------------------------
-# LOGIN ADMIN
-# ------------------------------
+
 ADMIN_LOGIN=$(curl -s -X POST $BASE_URL/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"admin@hbnb.io","password":"admin123"}')
@@ -23,9 +21,7 @@ EOF
 
 AUTH_ADMIN="Authorization: Bearer $ADMIN_TOKEN"
 
-# ------------------------------
-# CREATE PLACE OWNER (User A)
-# ------------------------------
+
 OWNER_EMAIL="owner_$(date +%s)@example.com"
 
 curl -s -X POST $BASE_URL/users/ \
@@ -50,9 +46,7 @@ EOF
 
 AUTH_OWNER="Authorization: Bearer $OWNER_TOKEN"
 
-# ------------------------------
-# CREATE PLACE (by Owner)
-# ------------------------------
+
 PLACE=$(curl -s -X POST $BASE_URL/places/ \
   -H "Content-Type: application/json" \
   -H "$AUTH_OWNER" \
@@ -68,9 +62,7 @@ print(json.loads("""$PLACE""")["id"])
 EOF
 )
 
-# ------------------------------
-# CREATE REVIEWER (User B)
-# ------------------------------
+
 REVIEWER_EMAIL="reviewer_$(date +%s)@example.com"
 
 curl -s -X POST $BASE_URL/users/ \
@@ -95,9 +87,7 @@ EOF
 
 AUTH_REVIEWER="Authorization: Bearer $REVIEWER_TOKEN"
 
-# ------------------------------
-# CREATE REVIEW
-# ------------------------------
+
 echo "== CREATE REVIEW =="
 
 REVIEW=$(curl -s -X POST $BASE_URL/reviews/ \
@@ -117,16 +107,12 @@ print(json.loads("""$REVIEW""")["id"])
 EOF
 )
 
-# ------------------------------
-# GET REVIEW
-# ------------------------------
+
 echo "== GET REVIEW =="
 
 curl -s -X GET $BASE_URL/reviews/$REVIEW_ID
 
-# ------------------------------
-# UPDATE REVIEW
-# ------------------------------
+
 echo "== UPDATE REVIEW =="
 
 curl -s -X PUT $BASE_URL/reviews/$REVIEW_ID \
@@ -137,17 +123,13 @@ curl -s -X PUT $BASE_URL/reviews/$REVIEW_ID \
     "rating": 4
   }'
 
-# ------------------------------
-# DELETE REVIEW
-# ------------------------------
+
 echo "== DELETE REVIEW =="
 
 curl -s -X DELETE $BASE_URL/reviews/$REVIEW_ID \
   -H "$AUTH_REVIEWER"
 
-# ------------------------------
-# GET REVIEW AFTER DELETE
-# ------------------------------
+
 echo "== GET REVIEW AFTER DELETE =="
 
 curl -s -X GET $BASE_URL/reviews/$REVIEW_ID
