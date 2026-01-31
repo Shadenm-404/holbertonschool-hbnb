@@ -11,7 +11,6 @@ class User(BaseModel):
     last_name = db.Column(db.String(128), nullable=True)
     is_admin = db.Column(db.Boolean, default=False)
 
-    # Relationships
     places = db.relationship("Place", back_populates="owner", cascade="all, delete-orphan")
     reviews = db.relationship("Review", back_populates="user", cascade="all, delete-orphan")
 
