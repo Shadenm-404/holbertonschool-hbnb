@@ -67,7 +67,7 @@ part3/
 │   │   │   ├── database.py
 │   │   │   └── session.py
 │   │   ├── repositories/
-│   │   │   ├── amenity_repository.py 
+│   │   │   ├── amenity_repository.py
 │   │   │   ├── place_repository.py
 │   │   │   ├── review_repository.py
 │   │   │   ├── sqlalchemy_repository.py
@@ -84,8 +84,13 @@ part3/
 │   ├── run.py
 │   ├── config.py
 │   ├── requirements.txt
-│   ├── test_amenities.sh
-│   ├── test_places_reviews.sh
+|   ├── test_full_api.py
+|   ├── test_full_api.sh
+|   ├── test_amenities_full.sh
+|   ├── test_places_full.sh
+|   ├──test_places_full.sh
+|   ├── test_reviews_full.sh
+|   ├── test_complete_api.sh
 │   └── README.md
 │
 └── README.md
