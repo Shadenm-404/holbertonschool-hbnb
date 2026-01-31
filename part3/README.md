@@ -55,6 +55,7 @@ part3/
 │   │   │       ├── amenities.py
 │   │   │       ├── auth.py
 │   │   │       └── init.py
+│   │   ├── extensions.py
 │   │   ├── models/
 │   │   │   ├── init.py
 │   │   │   ├── base_model.py
