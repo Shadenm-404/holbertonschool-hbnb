@@ -98,33 +98,25 @@ part3/
 ```
 ---
 ## SQL and Database Files
+## Backend and Database Components
 
-- `repositories/sqlalchemy_repository.py`
+### repositories/sqlalchemy_repository.py
+Handles all database operations using SQLAlchemy. This repository is responsible for persisting, retrieving, and updating data in the database, replacing in-memory storage with a reliable SQL-based persistence layer.
 
-  Handles database operations using SQLAlchemy.
-  It is responsible for saving, retrieving, and updating data in the database, replacing in-memory storage with persistent SQL-based storage.
+### api/v1/auth.py
+Manages authentication-related API endpoints. It verifies user credentials against stored database records and prepares the application for secure and controlled access.
 
-- `api/v1/auth.py`
+### sql/create_tables.sql
+Contains the SQL statements used to create database tables and define the overall schema structure required by the application.
 
-  Manages authentication-related API endpoints.
-  It verifies user credentials using stored database data and prepares the application for secure access.
+### sql/insert_admin.sql
+Provides initial SQL data for database initialization, including the insertion of a default administrative user.
 
-- `sql/create_tables.sql`
+### sql/insert_amenities.sql
+Supplies predefined SQL data used to populate the database with initial amenity records.
 
-  Contains SQL statements used to create the database tables and define the schema structure.
-
-- `sql/insert_admin.sql`
-
-  Provides initial SQL data for the database, such as inserting a default or administrative user.
-
-- `sql/insert_amenities.sql`
-
-  Provides initial SQL data for the database, such as inserting predefined amenity records.
-
-- `Database Integration (db)`
-
-  The database layer is responsible for establishing the connection, managing sessions, and ensuring data is stored persistently.
-  It acts as the foundation that links the application logic with the SQL database.
+### Database Integration (db)
+The database integration layer is responsible for establishing database connections, managing sessions, and ensuring persistent data storage. It serves as the foundation that links the application logic with the underlying SQL database.
 
 ---
 
