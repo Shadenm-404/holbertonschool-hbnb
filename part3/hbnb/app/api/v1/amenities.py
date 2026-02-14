@@ -1,5 +1,4 @@
 # app/api/v1/amenities.py
-
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required, get_jwt
 from app.services.facade import facade
@@ -14,12 +13,10 @@ update_amenity_model = api.model("AmenityUpdate", {
     "name": fields.String(description="Name of the amenity")
 })
 
-
 def require_admin():
     claims = get_jwt()
     if not claims.get("is_admin", False):
         api.abort(403, "Admin privileges required")
-
 
 @api.route("/")
 class AmenityList(Resource):
@@ -36,7 +33,6 @@ class AmenityList(Resource):
             return amenity.to_dict(), 201
         except ValueError as e:
             api.abort(400, str(e))
-
 
 @api.route("/<string:amenity_id>")
 class AmenityResource(Resource):
