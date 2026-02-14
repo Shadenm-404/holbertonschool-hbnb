@@ -371,7 +371,7 @@ async function displayPlaceDetails() {
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-1 text-yellow-500 text-xl">
-                                    ${'⭐'.repeat(rating)}
+                                    ${' '.repeat(rating)}
                                 </div>
                             </div>
                             <p class="text-gray-700 leading-relaxed">${reviewText}</p>
