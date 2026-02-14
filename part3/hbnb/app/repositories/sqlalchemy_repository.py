@@ -1,7 +1,7 @@
 from app.extensions import db
 
 class SQLAlchemyRepository:
-    def init(self, model):
+    def __init__(self, model):
         self.model = model
 
     def add(self, obj):
@@ -10,7 +10,6 @@ class SQLAlchemyRepository:
         return obj
 
     def get_by_id(self, obj_id):
-
         return db.session.get(self.model, obj_id)
 
     def get_all(self):
