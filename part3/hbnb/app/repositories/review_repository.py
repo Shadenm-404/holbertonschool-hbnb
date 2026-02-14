@@ -4,8 +4,8 @@ from app.models.review import Review
 
 
 class ReviewRepository(SQLAlchemyRepository):
-    def __init__(self):
-        super().__init__(Review)
+    def init(self):
+        super().init(Review)
 
     def get_by_user_and_place(self, user_id, place_id):
         return (
@@ -13,3 +13,5 @@ class ReviewRepository(SQLAlchemyRepository):
             .filter_by(user_id=user_id, place_id=place_id)
             .first()
         )
+    def get_by_place_id(self, place_id):
+        return Review.query.filter_by(place_id=place_id).order_by(Review.created_at.desc()).all()
