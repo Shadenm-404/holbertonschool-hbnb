@@ -213,3 +213,36 @@ async function displayPlacesInContainer(container, filterElementId) {
         container.innerHTML = '<div class="col-span-full text-center py-12 text-red-600">Error loading places</div>';
     }
 }
+function setupFavorites() {
+    document.querySelectorAll('.favorite-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const id = btn.dataset.id;
+            const icon = btn.querySelector('i');
+            const isFav = localStorage.getItem(fav_${id}) === 'true';
+
+            if (isFav) {
+                localStorage.removeItem(fav_${id});
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+            } else {
+                localStorage.setItem(fav_${id}, 'true');
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+            }
+        });
+    });
+}
+
+// ========== Place Details ==========
+async function fetchPlaceDetails(id) {
+    try {
+        const response = await fetch(${API_URL}/places/${id});
+        if (!response.ok) throw new Error('Failed');
+        return await response.json();
+    } catch (error) {
+        return null;
+    }
+}
