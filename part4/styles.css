@@ -309,7 +309,7 @@ select:focus {
    (Put at the VERY END of styles.css)
    ============================================ */
 
-/* Backgrounds */
+
 .bg-purple-600 { background-color: var(--lavender) !important; }
 .bg-purple-700 { background-color: var(--lavender-dark) !important; }
 .hover\:bg-purple-700:hover { background-color: var(--lavender-dark) !important; }
