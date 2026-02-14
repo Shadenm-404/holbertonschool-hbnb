@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About HBnB - Premium luxury stays and accommodations">
+    <meta name="theme-color" content="#9B7BB8">
+    <title>About HBnB - Luxury Stays</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- HEADER -->
+    <header>
+        <nav class="bg-white shadow-sm fixed w-full z-10">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center gap-2">
+                        <img src="images/logo.png" alt="HBnB Logo" class="w-13 h-12">
+                    </div>
+                    
+                    <div class="hidden md:flex gap-6">
+                        <a href="index.html" class="text-gray-600 hover:text-purple-600 transition">Home</a>
+                        <a href="place.html" class="text-gray-600 hover:text-purple-600 transition">Places</a>
+                        <a href="about.html" class="text-purple-600 font-semibold">About</a>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <a href="login.html" id="login-btn" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">Login</a>
+                        
+                        <div id="user-menu" class="hidden flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center text-white font-semibold">
+                                <span id="user-initial">U</span>
+                            </div>
+                            <button id="logout-btn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="h-16"></div>
+
+    <!-- HERO SECTION -->
+    <section class="about-hero text-white py-20">
+        <div class="max-w-6xl mx-auto px-4 text-center relative z-10">
+            <h1 class="font-display text-4xl md:text-5xl font-bold mb-4">About HBnB</h1>
+            <p class="text-xl opacity-90 max-w-2xl mx-auto">
+                HBnB is a web platform designed to help users discover different accommodations in Riyadh, including hotels, resorts, and chalets in a modern and easy way.</p>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-6xl mx-auto px-4 py-16">
+        
+        <!-- MISSION SECTION -->
+        <section class="mb-20">
+            <h2 class="font-display text-3xl font-bold mb-8 text-center">Our Mission</h2>
+            <div class="grid grid-cols-1 md:grid-cols-1 gap-10 items-center">
+                <div>
+                    <p class="text-lg text-gray-700 mb-4">
+                        At HBnB, we believe that exceptional accommodations create unforgettable experiences. Our mission is to connect travelers with the most luxurious and welcoming properties in Riyadh.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-4">
+                        We carefully select and verify every property to ensure that our guests enjoy not just a place to stay, but a gateway to authentic luxury experiences.
+                    </p>
+                    <p class="text-lg text-gray-700">
+                        Founded on the principles of trust, quality, and exceptional service, HBnB has become the preferred choice for luxury travelers worldwide.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section class="mb-20">
+            <h2 class="font-display text-3xl font-bold mb-12 text-center">Why Choose HBnB?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Feature 1 -->
+                <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center">
+                        <i class="fas fa-star text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">Premium Quality</h3>
+                    <p class="text-gray-600 text-center">
+                        Every property meets our rigorous standards for luxury, comfort, and exceptional service.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">Secure Booking</h3>
+                    <p class="text-gray-600 text-center">
+                        100% safe transactions with verified hosts and secure payment processing.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center">
+                        <i class="fas fa-headset text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">24/7 Support</h3>
+                    <p class="text-gray-600 text-center">
+                        Dedicated support team available around the clock to assist you.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center">
+                        <i class="fas fa-globe text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">Global Reach</h3>
+                    <p class="text-gray-600 text-center">
+                        Access curated properties in premium locations worldwide.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center">
+                        <i class="fas fa-award text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">Award Winning</h3>
+                    <p class="text-gray-600 text-center">
+                        Recognized for excellence in hospitality and customer satisfaction.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center">
+                        <i class="fas fa-check-circle text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3">Verified Hosts</h3>
+                    <p class="text-gray-600 text-center">
+                        All hosts are verified and committed to providing excellent service.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TEAM SECTION -->
+        <section class="mb-20">
+            <h2 class="font-display text-3xl font-bold mb-12 text-center">Meet Our Team</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Team Member 1 -->
+                <div class="team-card text-center">
+                    <div class="avatar-circle">
+                        <div class="avatar-inner">SA</div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Sondos Alrubaish</h3>
+                    <p class="text-purple-600 text-sm font-semibold mb-3">Electrical and Communication Engineering</p>
+                    <p class="text-purple-600 text-sm font-semibold mb-3">Princess Nourah University</p>                    
+                    <p class="text-gray-600 text-sm mb-4">
+                        Arduino, Python, IoT</p>
+                    <div class="flex justify-center gap-3">
+                        <a href="#" class="text-purple-600 hover:text-purple-800 transition" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-card text-center">
+                    <div class="avatar-circle">
+                        <div class="avatar-inner">NA</div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Nada Almutairi</h3>
+                    <p class="text-purple-600 text-sm font-semibold mb-3">Information Systems</p>
+                    <p class="text-purple-600 text-sm font-semibold mb-3">Al-Maarefa University</p>
+                    <p class="text-gray-600 text-sm mb-4">
+                        HTML/CSS, JavaScript, SQL
+                    </p>
+                    <div class="flex justify-center gap-3">
+                        <a href="#" class="text-purple-600 hover:text-purple-800 transition" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-card text-center">
+                    <div class="avatar-circle">
+                        <div class="avatar-inner">SA</div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Shaden Alalwani</h3>
+                    <p class="text-purple-600 text-sm font-semibold mb-3">Science in Financial Economics</p>
+                    <p class="text-purple-600 text-sm font-semibold mb-3">Princess Nourah University</p>
+
+                    <p class="text-gray-600 text-sm mb-4">
+                        Financial Analysis, FinTech, investment
+                    </p>
+                    <div class="flex justify-center gap-3">
+                        <a href="#" class="text-purple-600 hover:text-purple-800 transition" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS SECTION -->
+        <section class="bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-xl p-12 mb-20">
+            <h2 class="font-display text-3xl font-bold mb-12 text-center">By The Numbers</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold mb-2">5,000+</div>
+                    <p class="text-lg opacity-90">Properties Listed</p>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">1M+</div>
+                    <p class="text-lg opacity-90">Happy Guests</p>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">50+</div>
+                    <p class="text-lg opacity-90">Countries</p>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">4.8/5</div>
+                    <p class="text-lg opacity-90">Average Rating</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="text-center mb-20">
+            <h2 class="font-display text-3xl font-bold mb-4">Ready to Experience Luxury?</h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                Explore our curated collection of premium properties and book your next unforgettable stay.
+            </p>
+            <a href="index.html" class="inline-block px-8 py-4 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition">
+                Browse Properties
+            </a>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="font-bold mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Follow Us</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition text-lg" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-lg" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-lg" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-lg" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2026 HBnB. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
