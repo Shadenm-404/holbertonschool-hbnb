@@ -1,1 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HBnB - Login to book luxury stays">
+    <meta name="theme-color" content="#9B7BB8">
+    <title>HBnB - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- HEADER -->
+    <header>
+        <nav class="bg-white shadow-sm fixed w-full z-10">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center gap-2">
+                        <a href="index.html">
+                            <img src="images/logo.png" alt="HBnB Logo" class="w-13 h-12">
+                        </a>
+                    </div>
+                    
+                    <div class="hidden md:flex gap-6">
+                        <a href="index.html" class="text-gray-600 hover:text-purple-600 transition">Home</a>
+                        <a href="place.html" class="text-gray-600 hover:text-purple-600 transition">Places</a>
+                        <a href="about.html" class="text-gray-600 hover:text-purple-600 transition">About</a>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <a href="login.html" id="login-btn" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">Login</a>
+                        
+                        <div id="user-menu" class="hidden flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center text-white font-semibold">
+                                <span id="user-initial">U</span>
+                            </div>
+                            <button id="logout-btn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="h-16"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex items-center justify-center py-12">
+        <div class="w-full max-w-md">
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h1 class="font-display text-3xl font-bold text-center mb-2 text-gray-900">Welcome Back</h1>
+                <p class="text-center text-gray-600 mb-8">Log in to your HBnB account</p>
+
+                <!-- Error Message -->
+                <div id="error-msg" class="hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+                    <!-- Error message will appear here -->
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="space-y-4">
+                    <!-- Email Field -->
+                    <div>
+                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Email Address
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="you@example.com"
+                            required
+                            aria-label="Email address"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                        >
+                    </div>
+
+                    <!-- Password Field -->
+                    <div>
+                        <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Password
+                        </label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            placeholder="••••••••"
+                            required
+                            aria-label="Password"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                        >
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="remember" 
+                            name="remember"
+                            class="w-4 h-4 accent-purple-600 rounded"
+                        >
+                        <label for="remember" class="ml-2 text-sm text-gray-600">
+                            Remember me
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit" 
+                        class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 mt-6"
+                    >
+                        Sign In
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                    </div>
+                </div>
+
+                <!-- Social Login (Optional) -->
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <button type="button" class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition" aria-label="Sign in with Google">
+                        <i class="fab fa-google text-gray-600"></i>
+                    </button>
+                    <button type="button" class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition" aria-label="Sign in with Apple">
+                        <i class="fab fa-apple text-gray-600"></i>
+                    </button>
+                </div>
+
+                <!-- Sign Up Link -->
+                <p class="text-center text-gray-600 text-sm">
+                    Don't have an account? 
+                    <a href="#signup" class="text-purple-600 hover:text-purple-700 font-semibold">
+                        Create one
+                    </a>
+                </p>
+
+                <!-- Forgot Password -->
+                <p class="text-center text-gray-600 text-sm mt-4">
+                    <a href="#forgot" class="text-purple-600 hover:text-purple-700">
+                        Forgot your password?
+                    </a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
 
