@@ -1,0 +1,343 @@
+/* ============================================
+   HBnB - Lavender Unified Design System
+   ============================================ */
+
+:root {
+    --lavender: #9B7BB8;        /* Primary */
+    --lavender-dark: #7A5A9A;   /* Hover */
+    --lavender-darker: #5C3D7A; /* Deep gradient */
+    --gold: #D4AF37;
+    --gold-dark: #B8960E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #f9fafb;
+    color: #1f2937;
+}
+
+/* ============================================
+   Header
+   ============================================ */
+
+header nav {
+    background: white !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+/* Nav Links */
+.nav-link {
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--lavender);
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--lavender), var(--lavender-darker));
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-darker));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(155, 123, 184, 0.35);
+}
+
+/* Login Button */
+.login-button {
+    background: linear-gradient(135deg, var(--lavender), var(--lavender-darker));
+    color: white !important;
+    font-weight: 600;
+}
+
+.login-button:hover {
+    background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-darker));
+}
+
+/* ============================================
+   Hero Sections
+   ============================================ */
+
+.hero-gradient {
+    background: linear-gradient(135deg, var(--lavender) 0%, var(--lavender-darker) 100%);
+}
+
+/* About Hero */
+.about-hero{
+  background: linear-gradient(135deg, var(--lavender) 0%, var(--lavender-darker) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.about-hero::before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 45%),
+              radial-gradient(circle at 70% 60%, rgba(255,255,255,.12), transparent 55%);
+  transform: rotate(10deg);
+  pointer-events:none;
+}
+
+/* ============================================
+   Place Cards
+   ============================================ */
+
+.place-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(17,24,39,.06);
+    transition: all 0.3s ease;
+}
+
+.place-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(155, 123, 184, 0.25);
+}
+
+.place-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.place-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.place-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--lavender-darker);
+}
+
+/* ============================================
+   Favorite Button
+   ============================================ */
+
+.favorite-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.favorite-btn:hover {
+    transform: scale(1.1);
+}
+
+.favorite-btn i {
+    font-size: 20px;
+    color: #ef4444;
+}
+
+/* ============================================
+   Amenities
+   ============================================ */
+
+.amenity-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.amenity-icon i {
+    color: var(--lavender);
+}
+
+/* ============================================
+   Reviews
+   ============================================ */
+
+.review-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(17,24,39,.06);
+    margin-bottom: 1rem;
+}
+
+.review-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--lavender), var(--lavender-darker));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+}
+
+/* ============================================
+   Star Rating
+   ============================================ */
+
+#star-rating i {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#star-rating i:hover {
+    transform: scale(1.1);
+    color: #fbbf24;
+}
+
+/* ============================================
+   Forms
+   ============================================ */
+
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--lavender);
+    box-shadow: 0 0 0 3px rgba(155, 123, 184, 0.15);
+}
+
+/* ============================================
+   Team Cards (About)
+   ============================================ */
+
+.team-card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:20px;
+  padding:26px 18px 22px;
+  box-shadow: 0 6px 22px rgba(17,24,39,.06);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.team-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 14px 38px rgba(155,123,184,.25);
+}
+
+.avatar-circle{
+  width:86px;
+  height:86px;
+  border-radius:9999px;
+  margin: 0 auto 14px;
+  background: linear-gradient(135deg, rgba(155,123,184,.25), rgba(92,61,122,.25));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.avatar-inner{
+  width:64px;
+  height:64px;
+  border-radius:9999px;
+  background: linear-gradient(135deg, var(--lavender), var(--lavender-darker));
+  color:#fff;
+  font-weight:800;
+  font-size:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+    .place-card {
+        margin-bottom: 1rem;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* ============================================
+   Tailwind Purple -> Lavender Overrides
+   (Put at the VERY END of styles.css)
+   ============================================ */
+
+/* Backgrounds */
+.bg-purple-600 { background-color: var(--lavender) !important; }
+.bg-purple-700 { background-color: var(--lavender-dark) !important; }
+.hover\:bg-purple-700:hover { background-color: var(--lavender-dark) !important; }
+
+/* Text */
+.text-purple-600 { color: var(--lavender) !important; }
+.hover\:text-purple-600:hover { color: var(--lavender) !important; }
+
+/* Borders */
+.border-purple-600 { border-color: var(--lavender) !important; }
+.ring-purple-600 { --tw-ring-color: rgba(155, 123, 184, 0.45) !important; }
+
+/* Focus ring used by inputs sometimes */
+.focus\:ring-purple-600:focus { --tw-ring-color: rgba(155, 123, 184, 0.45) !important; }
+.focus\:border-purple-600:focus { border-color: var(--lavender) !important; }
+
+/* Make purple buttons use the SAME Lavender gradient as About */
+.bg-purple-600,
+.bg-purple-700 {
+  background-image: linear-gradient(135deg, var(--lavender), var(--lavender-darker)) !important;
+  background-color: transparent !important;
+}
+
+.hover\:bg-purple-700:hover {
+  background-image: linear-gradient(135deg, var(--lavender-dark), var(--lavender-darker)) !important;
+  background-color: transparent !important;
+}
+
+/* Tailwind gradient overrides -> Lavender */
+.from-purple-600 { --tw-gradient-from: var(--lavender) !important; }
+.to-purple-800   { --tw-gradient-to: var(--lavender-darker) !important; }
