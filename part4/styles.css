@@ -326,7 +326,7 @@ select:focus {
 .focus\:ring-purple-600:focus { --tw-ring-color: rgba(155, 123, 184, 0.45) !important; }
 .focus\:border-purple-600:focus { border-color: var(--lavender) !important; }
 
-/* Make purple buttons use the SAME Lavender gradient as About */
+
 .bg-purple-600,
 .bg-purple-700 {
   background-image: linear-gradient(135deg, var(--lavender), var(--lavender-darker)) !important;
