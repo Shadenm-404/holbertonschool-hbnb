@@ -68,7 +68,7 @@ header nav {
     box-shadow: 0 4px 12px rgba(155, 123, 184, 0.35);
 }
 
-/* Login Button */
+
 .login-button {
     background: linear-gradient(135deg, var(--lavender), var(--lavender-darker));
     color: white !important;
