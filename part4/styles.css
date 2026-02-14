@@ -3,9 +3,9 @@
    ============================================ */
 
 :root {
-    --lavender: #9B7BB8;        /* Primary */
-    --lavender-dark: #7A5A9A;   /* Hover */
-    --lavender-darker: #5C3D7A; /* Deep gradient */
+    --lavender: #9B7BB8;        
+    --lavender-dark: #7A5A9A;   
+    --lavender-darker: #5C3D7A; 
     --gold: #D4AF37;
     --gold-dark: #B8960E;
 }
@@ -37,7 +37,7 @@ header nav {
     object-fit: contain;
 }
 
-/* Nav Links */
+
 .nav-link {
     font-weight: 600;
     transition: all 0.3s ease;
