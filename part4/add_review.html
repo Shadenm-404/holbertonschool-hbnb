@@ -67,7 +67,7 @@
       if (placeId) {
         document.getElementById('place-id').value = placeId;
         
-        // تحميل اسم المكان من الـ API
+        
         fetch(`${API_URL}/places/${placeId}`)
           .then(response => {
             if (response.ok) {
